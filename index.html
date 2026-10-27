@@ -1,61 +1,317 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Future Plan</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Special Question for Shitu 💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <style>
+    :root {
+      --primary: #ff4b72;
+      --primary-hover: #e0365d;
+      --accent: #ff8fa3;
+      --bg-gradient: linear-gradient(135deg, #fff0f5 0%, #ffd1dc 50%, #ffe6eb 100%);
+      --text: #4a2e35;
+      --glass: rgba(255, 255, 255, 0.9);
+      --shadow: 0 15px 35px rgba(255, 75, 114, 0.25);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg-gradient);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow-x: hidden;
+      color: var(--text);
+      padding: 20px 0;
+    }
+
+    /* Floating Heart Background */
+    .bg-hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .heart-bg {
+      position: absolute;
+      color: rgba(255, 75, 114, 0.3);
+      animation: floatUp 8s infinite linear;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(105vh) scale(0.5) rotate(0deg);
+        opacity: 0;
+      }
+      20% { opacity: 0.8; }
+      100% {
+        transform: translateY(-10vh) scale(1.2) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Card Styling */
+    .card {
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 2px solid rgba(255, 255, 255, 0.8);
+      border-radius: 28px;
+      padding: 35px 25px;
+      width: 90%;
+      max-width: 480px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      z-index: 10;
+      position: relative;
+    }
+
+    .icon-box {
+      font-size: 65px;
+      margin-bottom: 10px;
+      animation: pulse 1.8s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.12); }
+      100% { transform: scale(1); }
+    }
+
+    h1 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 2.6rem;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      font-size: 1.05rem;
+      color: #6a3e49;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    /* Photo Box */
+    .memory-box {
+      width: 100%;
+      height: 240px;
+      border-radius: 20px;
+      overflow: hidden;
+      margin: 15px 0 25px 0;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+      border: 3px solid #fff;
+    }
+
+    .memory-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Buttons */
+    .btn-container {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .btn {
+      padding: 12px 24px;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 5px 15px rgba(255, 75, 114, 0.3);
+      outline: none;
+    }
+
+    .btn-yes1 {
+      background: var(--primary);
+      color: white;
+      flex: 1;
+      min-width: 140px;
+    }
+
+    .btn-yes1:hover {
+      background: var(--primary-hover);
+      transform: scale(1.05);
+    }
+
+    .btn-yes2 {
+      background: white;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+      flex: 1;
+      min-width: 140px;
+    }
+
+    .btn-yes2:hover {
+      background: #fff0f3;
+      transform: scale(1.05);
+    }
+
+    /* Quiz Steps Control */
+    .step {
+      display: none;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .step.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .love-letter {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 20px;
+      border-radius: 16px;
+      border-left: 5px solid var(--primary);
+      text-align: left;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: #523038;
+      line-height: 1.6;
+      margin-top: 15px;
+    }
+  </style>
 </head>
 <body>
 
-    <!-- Header Section -->
-    <header>
-        <h1>My Future Plan & Goals</h1>
-        <p>A roadmap to achieve my dreams and ambitions.</p>
-    </header>
+  <div class="bg-hearts" id="bgHearts"></div>
 
-    <hr>
+  <div class="card">
+    
+    <!-- STEP 1: Flirty Intro Question -->
+    <div class="step active" id="step1">
+      <div class="icon-box">😉</div>
+      <h1>Hey cutiepie...</h1>
+      <p class="subtitle">Quick question before we begin: Who do you think is the luckiest guy in the world?</p>
+      
+      <div class="btn-container">
+        <button class="btn btn-yes1" onclick="nextStep(2)">Antu, obviously! 💖</button>
+        <button class="btn btn-yes2" onclick="nextStep(2)">Antu, because he has me! 😏</button>
+      </div>
+    </div>
 
-    <!-- Main Content -->
-    <main>
+    <!-- STEP 2: Playful Question -->
+    <div class="step" id="step2">
+      <div class="icon-box">🥰</div>
+      <h1>Be Honest, cutiepie...</h1>
+      <p class="subtitle">How much do you catch yourself smiling whenever Antu texts or holds your hand?</p>
+      
+      <div class="btn-container">
+        <button class="btn btn-yes1" onclick="nextStep(3)">100% of the time! 😊</button>
+        <button class="btn btn-yes2" onclick="nextStep(3)">Way too much! 🙈</button>
+      </div>
+    </div>
 
-        <!-- Career Goal Section -->
-        <section>
-            <h2>1. Career Objective</h2>
-            <p>My ultimate career goal is to become a highly skilled and professional <strong>Web Developer</strong>. I want to build modern, user-friendly, and responsive websites that solve real-world problems.</p>
-        </section>
+    <!-- STEP 3: THE PROPOSAL -->
+    <div class="step" id="step3">
+      <div class="icon-box">💍</div>
+      <h1>cutiepie, Will You Marry Me?</h1>
+      <p class="subtitle">Antu wants to spend every single day making you laugh, holding your hand, and loving you forever.</p>
 
-        <hr>
+      <!-- ======================================================= -->
+      ADD YOUR PICTURE HERE IN THE SRC ATTRIBUTE BELOW! 📸 -->
+      <!-- ======================================================= -->
+      <div class="memory-box">
+        <img src="/WhatsApp Image 2026-10-28 at 00.53.29.jpeg" alt="Antu and Shitu">
+      </div>
+      <!-- ======================================================= -->
 
-        <!-- Learning Path Section -->
-        <section>
-            <h2>2. Learning Steps</h2>
-            <ul>
-                <li>Mastering <strong>HTML5 & CSS3</strong> for solid structuring and styling.</li>
-                <li>Learning <strong>JavaScript</strong> to add interactivity and dynamic features.</li>
-                <li>Exploring advanced frameworks and modern development tools.</li>
-            </ul>
-        </section>
+      <div class="btn-container">
+        <button class="btn btn-yes1" onclick="sayYes('YES!')">Yes! 💖</button>
+        <button class="btn btn-yes2" onclick="sayYes('DEFINITELY YES!')">Definitely Yes! ✨</button>
+      </div>
+    </div>
 
-        <hr>
+    <!-- STEP 4: CELEBRATION -->
+    <div class="step" id="step4">
+      <div class="icon-box">🥂👩‍❤️‍👨</div>
+      <h1>SHE SAID YES!</h1>
+      <p class="subtitle">Antu & cutiepie — Forever & Always ❤️</p>
+      
+      <div class="love-letter">
+        "my cutiepie, from this day forward, you never have to walk alone. My heart is yours, my future is yours, and I promises to love you more and more every single day." <br><br>
+        <strong>— Yours forever, Antu 💍</strong>
+      </div>
+    </div>
 
-        <!-- Personal Growth Section -->
-        <section>
-            <h2>3. Personal Growth & Focus</h2>
-            <ol>
-                <li>Improving problem-solving and logical thinking skills daily.</li>
-                <li>Staying focused on personal targets without distractions.</li>
-                <li>Building real-world projects and maintaining an active GitHub profile.</li>
-            </ol>
-        </section>
+  </div>
 
-    </main>
+  <script>
+    // Create floating heart animation
+    const symbols = ['💖', '💕', '🌸', '✨', '❤️', '💍'];
+    const container = document.getElementById('bgHearts');
+    for (let i = 0; i < 25; i++) {
+      const heart = document.createElement('div');
+      heart.className = 'heart-bg';
+      heart.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
+      heart.style.animationDelay = (Math.random() * 5) + 's';
+      heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
+      container.appendChild(heart);
+    }
 
-    <hr>
+    // Step navigation
+    function nextStep(stepNumber) {
+      document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
+      document.getElementById('step' + stepNumber).classList.add('active');
+    }
 
-    <!-- Footer Section -->
-    <footer>
-        <p>&copy; 2026 Antu Das. Working towards a brighter future.</p>
-    </footer>
+    // Proposal Yes Celebration
+    function sayYes(answer) {
+      nextStep(4);
 
+      // Trigger Confetti Explosion
+      const duration = 4 * 1000;
+      const end = Date.now() + duration;
+
+      (function frame() {
+        confetti({
+          particleCount: 6,
+          angle: 60,
+          spread: 60,
+          origin: { x: 0 },
+          colors: ['#ff4b72', '#ff8fa3', '#ffffff']
+        });
+        confetti({
+          particleCount: 6,
+          angle: 120,
+          spread: 60,
+          origin: { x: 1 },
+          colors: ['#ff4b72', '#ff8fa3', '#ffffff']
+        });
+
+        if (Date.now() < end) {
+          requestAnimationFrame(frame);
+        }
+      })();
+    }
+  </script>
 </body>
 </html>
